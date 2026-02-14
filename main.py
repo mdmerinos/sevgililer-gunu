@@ -19,6 +19,7 @@ html_code = """
             align-items: center; 
             min-height: 100vh; 
             padding: 20px;
+            overflow: hidden;
         }
         .container { 
             text-align: center; 
@@ -39,18 +40,18 @@ html_code = """
             display: flex; 
             justify-content: center; 
             gap: 20px; 
-            min-height: 60px; 
+            min-height: 80px; 
             align-items: center; 
             position: relative;
         }
         button { 
-            padding: 12px 25px; 
+            padding: 15px 30px; 
             font-size: 18px; 
             border-radius: 50px; 
             border: none; 
             cursor: pointer; 
             font-weight: bold; 
-            transition: 0.2s; 
+            transition: all 0.3s ease; 
         }
         #yesBtn { 
             background-color: #ff4b6b; 
@@ -60,21 +61,26 @@ html_code = """
         }
         #yesBtn:hover {
             background-color: #ff3355;
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
         #noBtn { 
             background-color: #f0f0f0; 
             color: #888; 
-            position: absolute; 
+            position: fixed;
+            transition: all 0.2s ease;
+        }
+        #noBtn:hover {
+            background-color: #e0e0e0;
         }
         #success-content { 
             display: none; 
             text-align: center; 
+            animation: fadeIn 0.5s ease-in;
         }
         .mcqueen-img { 
             width: 100%; 
             height: auto;
-            max-width: 400px; 
+            max-width: 450px; 
             border-radius: 20px; 
             margin-bottom: 20px; 
             box-shadow: 0 5px 15px rgba(255, 75, 107, 0.2);
@@ -84,15 +90,20 @@ html_code = """
         }
         .message { 
             color: #ff4b6b; 
-            font-size: 20px; 
+            font-size: 22px; 
             font-weight: bold; 
             animation: pulse 1.5s infinite; 
-            margin-top: 15px;
+            margin-top: 20px;
+            line-height: 1.5;
         }
         @keyframes pulse { 
             0% { transform: scale(1); } 
             50% { transform: scale(1.05); } 
             100% { transform: scale(1); } 
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -102,49 +113,102 @@ html_code = """
         <h1>Beraber kutlayalım mı? ❤️</h1>
         <div class="buttons">
             <button id="yesBtn" onclick="celebrate()">Evet</button>
-            <button id="noBtn" onmouseover="moveButton()">Hayır</button>
+            <button id="noBtn" onmouseenter="moveButton()" onclick="moveButton()">Hayır</button>
         </div>
     </div>
     <div id="success-content">
         <img src="https://media.tenor.com/T_7m_G_V67QAAAAC/lightning-mcqueen-cars.gif" 
              class="mcqueen-img" 
-             alt="Lightning McQueen">
-        <div class="message">Sevgililer günümüz kutlu olsun baliimmm! 🏎️⚡</div>
-        <audio id="kachowAudio">
+             alt="Lightning McQueen"
+             onerror="this.src='https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN1YzZvOGE5aGdpZjV6OWs4Nm5lMXVxZm5xZ21lZjY5YzN6ZnN6YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xUOwGhOrYP0jP6iAy4/giphy.gif'">
+        <div class="message">Sevgililer günümüz kutlu olsun baliimmm! 🏎️⚡💕</div>
+        <audio id="kachowAudio" preload="auto">
             <source src="https://www.myinstants.com/media/sounds/lightning-mcqueen-kachow.mp3" type="audio/mpeg">
         </audio>
     </div>
 </div>
 <script>
+    let moveCount = 0;
+    
     function moveButton() {
         const btn = document.getElementById('noBtn');
-        const container = document.getElementById('mainContainer');
-        const containerRect = container.getBoundingClientRect();
+        moveCount++;
         
-        const maxX = containerRect.width - btn.offsetWidth - 40;
-        const maxY = containerRect.height - btn.offsetHeight - 40;
+        // Ekran boyutlarını al
+        const maxX = window.innerWidth - btn.offsetWidth - 20;
+        const maxY = window.innerHeight - btn.offsetHeight - 20;
         
-        const x = Math.random() * maxX + 20;
-        const y = Math.random() * maxY + 20;
+        // Rastgele pozisyon oluştur
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
         
+        // Butonu hareket ettir
         btn.style.left = x + 'px';
         btn.style.top = y + 'px';
+        
+        // 5 denemeden sonra butonu küçült
+        if (moveCount > 5) {
+            btn.style.transform = 'scale(0.8)';
+        }
     }
     
     function celebrate() {
         document.getElementById('content').style.display = 'none';
         document.getElementById('success-content').style.display = 'block';
         
+        // Ses çal
         const audio = document.getElementById('kachowAudio');
         audio.play().catch(e => console.log("Ses çalma hatası:", e));
+        
+        // Konfeti efekti (opsiyonel)
+        createConfetti();
     }
+    
+    function createConfetti() {
+        const colors = ['#ff4b6b', '#ff69b4', '#ff1493', '#c71585'];
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = '-10px';
+                confetti.style.borderRadius = '50%';
+                confetti.style.pointerEvents = 'none';
+                confetti.style.zIndex = '1000';
+                document.body.appendChild(confetti);
+                
+                let pos = -10;
+                const fall = setInterval(() => {
+                    pos += 5;
+                    confetti.style.top = pos + 'px';
+                    confetti.style.transform = 'rotate(' + (pos * 2) + 'deg)';
+                    if (pos > window.innerHeight) {
+                        clearInterval(fall);
+                        confetti.remove();
+                    }
+                }, 20);
+            }, i * 30);
+        }
+    }
+    
+    // Sayfa yüklendiğinde "Hayır" butonunu ortala
+    window.onload = function() {
+        const btn = document.getElementById('noBtn');
+        const container = document.getElementById('mainContainer');
+        const rect = container.getBoundingClientRect();
+        btn.style.left = (rect.left + rect.width / 2 + 50) + 'px';
+        btn.style.top = (rect.top + rect.height / 2) + 'px';
+    };
 </script>
 </body>
 </html>
 """
 
-# HTML component'i daha yüksek bir height ile render et
-components.html(html_code, height=700, scrolling=False)
+# HTML component'i yüksek bir height ile render et
+components.html(html_code, height=800, scrolling=False)
 
 # Streamlit stil düzenlemeleri
 st.markdown("""
