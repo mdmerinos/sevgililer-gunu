@@ -1,13 +1,32 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import base64
+from pathlib import Path
 
 # Sayfa ayarları
 st.set_page_config(page_title="Sana Bir Sorum Var ❤️", page_icon="🏎️", layout="centered")
 
-# Resmi Base64'e çevir
-with open("/mnt/user-data/uploads/simsek.jpg", "rb") as f:
-    img_data = base64.b64encode(f.read()).decode()
+# Resmi yükle ve Base64'e çevir
+def get_base64_image(image_path):
+    try:
+        with open(image_path, "rb") as f:
+            return base64.b64encode(f.read()).decode()
+    except:
+        # Eğer dosya bulunamazsa alternatif bir yöntem
+        return None
+
+# Resmi yükle - uploads klasöründen direkt oku
+img_path = Path("/mnt/user-data/uploads/simsek.jpg")
+if img_path.exists():
+    img_data = get_base64_image(img_path)
+else:
+    # Alternatif: Streamlit file uploader kullan
+    st.error("Lütfen simsek.jpg dosyasını yükleyin")
+    uploaded_file = st.file_uploader("Lightning McQueen resmini yükleyin", type=['jpg', 'jpeg', 'png'])
+    if uploaded_file:
+        img_data = base64.b64encode(uploaded_file.read()).decode()
+    else:
+        st.stop()
 
 # HTML kodu
 html_code = f"""
