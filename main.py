@@ -77,16 +77,19 @@ html_code = """
             text-align: center; 
             animation: fadeIn 0.5s ease-in;
         }
+        .gif-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto 20px;
+            background: #f8f8f8;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(255, 75, 107, 0.2);
+        }
         .mcqueen-img { 
             width: 100%; 
             height: auto;
-            max-width: 450px; 
-            border-radius: 20px; 
-            margin-bottom: 20px; 
-            box-shadow: 0 5px 15px rgba(255, 75, 107, 0.2);
             display: block;
-            margin-left: auto;
-            margin-right: auto;
         }
         .message { 
             color: #ff4b6b; 
@@ -117,10 +120,11 @@ html_code = """
         </div>
     </div>
     <div id="success-content">
-        <img src="https://media.tenor.com/T_7m_G_V67QAAAAC/lightning-mcqueen-cars.gif" 
-             class="mcqueen-img" 
-             alt="Lightning McQueen"
-             onerror="this.src='https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN1YzZvOGE5aGdpZjV6OWs4Nm5lMXVxZm5xZ21lZjY5YzN6ZnN6YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xUOwGhOrYP0jP6iAy4/giphy.gif'">
+        <div class="gif-container">
+            <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDh5bTFmNzB0OXExYnk0dmNpMGgxZWE4aDdsdGFvZmNwMngyZGo0cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xUOwGhOrYP0jP6iAy4/giphy.gif" 
+                 class="mcqueen-img" 
+                 alt="Lightning McQueen">
+        </div>
         <div class="message">Sevgililer günümüz kutlu olsun baliimmm! 🏎️⚡💕</div>
         <audio id="kachowAudio" preload="auto">
             <source src="https://www.myinstants.com/media/sounds/lightning-mcqueen-kachow.mp3" type="audio/mpeg">
@@ -134,19 +138,15 @@ html_code = """
         const btn = document.getElementById('noBtn');
         moveCount++;
         
-        // Ekran boyutlarını al
         const maxX = window.innerWidth - btn.offsetWidth - 20;
         const maxY = window.innerHeight - btn.offsetHeight - 20;
         
-        // Rastgele pozisyon oluştur
         const x = Math.random() * maxX;
         const y = Math.random() * maxY;
         
-        // Butonu hareket ettir
         btn.style.left = x + 'px';
         btn.style.top = y + 'px';
         
-        // 5 denemeden sonra butonu küçült
         if (moveCount > 5) {
             btn.style.transform = 'scale(0.8)';
         }
@@ -156,11 +156,9 @@ html_code = """
         document.getElementById('content').style.display = 'none';
         document.getElementById('success-content').style.display = 'block';
         
-        // Ses çal
         const audio = document.getElementById('kachowAudio');
         audio.play().catch(e => console.log("Ses çalma hatası:", e));
         
-        // Konfeti efekti (opsiyonel)
         createConfetti();
     }
     
@@ -194,7 +192,6 @@ html_code = """
         }
     }
     
-    // Sayfa yüklendiğinde "Hayır" butonunu ortala
     window.onload = function() {
         const btn = document.getElementById('noBtn');
         const container = document.getElementById('mainContainer');
@@ -207,10 +204,8 @@ html_code = """
 </html>
 """
 
-# HTML component'i yüksek bir height ile render et
-components.html(html_code, height=800, scrolling=False)
+components.html(html_code, height=850, scrolling=False)
 
-# Streamlit stil düzenlemeleri
 st.markdown("""
     <style>
     .stApp { background-color: #fff5f7; }
