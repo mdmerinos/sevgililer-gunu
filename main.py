@@ -2,9 +2,9 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 # Sayfa ayarları
-st.set_page_config(page_title="Sana Bir Sorum Var ❤️", page_icon="❤️", layout="centered")
+st.set_page_config(page_title="Sana Bir Sorum Var ❤️", page_icon="🏎️", layout="centered")
 
-# CSS ve JavaScript içeren HTML kodu
+# CSS, JavaScript ve McQueen Medya İçeren HTML kodu
 html_code = """
 <!DOCTYPE html>
 <html>
@@ -59,8 +59,16 @@ html_code = """
             color: #888;
             position: absolute;
         }
-        #success-message {
+        #success-content {
             display: none;
+            text-align: center;
+        }
+        .mcqueen-img {
+            width: 250px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .message {
             color: #ff4b6b;
             font-size: 24px;
             font-weight: bold;
@@ -83,15 +91,19 @@ html_code = """
             <button id="noBtn" onmouseover="moveButton()">Hayır</button>
         </div>
     </div>
-    <div id="success-message">
-        Sevgililer günümüz kutlu olsun baliimmm! 🎀✨
+
+    <div id="success-content">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXF4eXJueXF4eXJueXF4eXJueXF4eXJueXF4eXJueXF4&ep=v1_gifs_search&rid=giphy.gif&ct=g" class="mcqueen-img">
+        <div class="message">Sevgililer günümüz kutlu olsun baliimmm! 🏎️⚡</div>
+        <audio id="kachowAudio">
+            <source src="https://www.myinstants.com/media/sounds/lightning-mcqueen-kachow.mp3" type="audio/mpeg">
+        </audio>
     </div>
 </div>
 
 <script>
     function moveButton() {
         const btn = document.getElementById('noBtn');
-        // Butonun ekran dışına taşmaması için sınırlar
         const x = Math.random() * (window.innerWidth - btn.offsetWidth);
         const y = Math.random() * (window.innerHeight - btn.offsetHeight);
         
@@ -101,12 +113,13 @@ html_code = """
     }
 
     function celebrate() {
+        // Eski içeriği gizle
         document.getElementById('content').style.display = 'none';
-        document.getElementById('success-message').style.display = 'block';
-        
-        // Konfeti efekti (isteğe bağlı)
-        const duration = 5 * 1000;
-        const animationEnd = Date.now() + duration;
+        // Yeni içeriği göster
+        document.getElementById('success-content').style.display = 'block';
+        // Sesi çal
+        const audio = document.getElementById('kachowAudio');
+        audio.play();
     }
 </script>
 
@@ -117,7 +130,7 @@ html_code = """
 # HTML'i Streamlit içine gömüyoruz
 components.html(html_code, height=600)
 
-# Streamlit üzerinden arka planı da temizleyelim
+# Streamlit tasarım düzenlemeleri
 st.markdown("""
     <style>
     .stApp {
