@@ -1,17 +1,22 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import base64
 
 # Sayfa ayarları
 st.set_page_config(page_title="Sana Bir Sorum Var ❤️", page_icon="🏎️", layout="centered")
 
+# Resmi Base64'e çevir
+with open("/mnt/user-data/uploads/simsek.jpg", "rb") as f:
+    img_data = base64.b64encode(f.read()).decode()
+
 # HTML kodu
-html_code = """
+html_code = f"""
 <!DOCTYPE html>
 <html>
 <head>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{ 
             background-color: #fff5f7; 
             font-family: 'Arial', sans-serif; 
             display: flex; 
@@ -20,8 +25,8 @@ html_code = """
             min-height: 100vh; 
             padding: 20px;
             overflow: hidden;
-        }
-        .container { 
+        }}
+        .container {{ 
             text-align: center; 
             background: white; 
             padding: 40px; 
@@ -30,21 +35,21 @@ html_code = """
             width: 100%; 
             max-width: 500px; 
             position: relative; 
-        }
-        h1 { 
+        }}
+        h1 {{ 
             color: #ff4b6b; 
             margin-bottom: 30px; 
             font-size: 24px; 
-        }
-        .buttons { 
+        }}
+        .buttons {{ 
             display: flex; 
             justify-content: center; 
             gap: 20px; 
             min-height: 80px; 
             align-items: center; 
             position: relative;
-        }
-        button { 
+        }}
+        button {{ 
             padding: 15px 30px; 
             font-size: 18px; 
             border-radius: 50px; 
@@ -52,62 +57,68 @@ html_code = """
             cursor: pointer; 
             font-weight: bold; 
             transition: all 0.3s ease; 
-        }
-        #yesBtn { 
+        }}
+        #yesBtn {{ 
             background-color: #ff4b6b; 
             color: white; 
             position: relative;
             z-index: 10;
-        }
-        #yesBtn:hover {
+        }}
+        #yesBtn:hover {{
             background-color: #ff3355;
             transform: scale(1.1);
-        }
-        #noBtn { 
+        }}
+        #noBtn {{ 
             background-color: #f0f0f0; 
             color: #888; 
             position: fixed;
             transition: all 0.2s ease;
-        }
-        #noBtn:hover {
+        }}
+        #noBtn:hover {{
             background-color: #e0e0e0;
-        }
-        #success-content { 
+        }}
+        #success-content {{ 
             display: none; 
             text-align: center; 
             animation: fadeIn 0.5s ease-in;
-        }
-        .gif-container {
+        }}
+        .img-container {{
             width: 100%;
-            max-width: 450px;
+            max-width: 400px;
             margin: 0 auto 20px;
             background: #f8f8f8;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(255, 75, 107, 0.2);
-        }
-        .mcqueen-img { 
+        }}
+        .mcqueen-img {{ 
             width: 100%; 
             height: auto;
             display: block;
-        }
-        .message { 
+            animation: zoom 2s ease-in-out infinite;
+        }}
+        .message {{ 
             color: #ff4b6b; 
             font-size: 22px; 
             font-weight: bold; 
             animation: pulse 1.5s infinite; 
             margin-top: 20px;
             line-height: 1.5;
-        }
-        @keyframes pulse { 
-            0% { transform: scale(1); } 
-            50% { transform: scale(1.05); } 
-            100% { transform: scale(1); } 
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        }}
+        @keyframes pulse {{ 
+            0% {{ transform: scale(1); }} 
+            50% {{ transform: scale(1.05); }} 
+            100% {{ transform: scale(1); }} 
+        }}
+        @keyframes zoom {{
+            0% {{ transform: scale(1); }} 
+            50% {{ transform: scale(1.02); }} 
+            100% {{ transform: scale(1); }} 
+        }}
+        @keyframes fadeIn {{
+            from {{ opacity: 0; }}
+            to {{ opacity: 1; }}
+        }}
     </style>
 </head>
 <body>
@@ -120,11 +131,10 @@ html_code = """
         </div>
     </div>
     <div id="success-content">
-        <div class="gif-container">
-            <img src="https://media.tenor.com/images/3a43312d90c1da3fbce8c8d2e8e8c7c3/tenor.gif" 
+        <div class="img-container">
+            <img src="data:image/jpeg;base64,{img_data}" 
                  class="mcqueen-img" 
-                 alt="Lightning McQueen Wink"
-                 onerror="this.onerror=null; this.src='https://i.pinimg.com/originals/66/d4/7a/66d47aeb028b60e62127c72d4e6469ff.gif';">
+                 alt="Lightning McQueen">
         </div>
         <div class="message">Sevgililer günümüz kutlu olsun baliimmm! 🏎️⚡💕</div>
         <audio id="kachowAudio" preload="auto">
@@ -135,7 +145,7 @@ html_code = """
 <script>
     let moveCount = 0;
     
-    function moveButton() {
+    function moveButton() {{
         const btn = document.getElementById('noBtn');
         moveCount++;
         
@@ -148,12 +158,12 @@ html_code = """
         btn.style.left = x + 'px';
         btn.style.top = y + 'px';
         
-        if (moveCount > 5) {
+        if (moveCount > 5) {{
             btn.style.transform = 'scale(0.8)';
-        }
-    }
+        }}
+    }}
     
-    function celebrate() {
+    function celebrate() {{
         document.getElementById('content').style.display = 'none';
         document.getElementById('success-content').style.display = 'block';
         
@@ -161,12 +171,12 @@ html_code = """
         audio.play().catch(e => console.log("Ses çalma hatası:", e));
         
         createConfetti();
-    }
+    }}
     
-    function createConfetti() {
-        const colors = ['#ff4b6b', '#ff69b4', '#ff1493', '#c71585'];
-        for (let i = 0; i < 50; i++) {
-            setTimeout(() => {
+    function createConfetti() {{
+        const colors = ['#ff4b6b', '#ff69b4', '#ff1493', '#c71585', '#ffd700'];
+        for (let i = 0; i < 60; i++) {{
+            setTimeout(() => {{
                 const confetti = document.createElement('div');
                 confetti.style.position = 'fixed';
                 confetti.style.width = '10px';
@@ -180,32 +190,32 @@ html_code = """
                 document.body.appendChild(confetti);
                 
                 let pos = -10;
-                const fall = setInterval(() => {
+                const fall = setInterval(() => {{
                     pos += 5;
                     confetti.style.top = pos + 'px';
                     confetti.style.transform = 'rotate(' + (pos * 2) + 'deg)';
-                    if (pos > window.innerHeight) {
+                    if (pos > window.innerHeight) {{
                         clearInterval(fall);
                         confetti.remove();
-                    }
-                }, 20);
-            }, i * 30);
-        }
-    }
+                    }}
+                }}, 20);
+            }}, i * 30);
+        }}
+    }}
     
-    window.onload = function() {
+    window.onload = function() {{
         const btn = document.getElementById('noBtn');
         const container = document.getElementById('mainContainer');
         const rect = container.getBoundingClientRect();
         btn.style.left = (rect.left + rect.width / 2 + 50) + 'px';
         btn.style.top = (rect.top + rect.height / 2) + 'px';
-    };
+    }};
 </script>
 </body>
 </html>
 """
 
-components.html(html_code, height=850, scrolling=False)
+components.html(html_code, height=800, scrolling=False)
 
 st.markdown("""
     <style>
