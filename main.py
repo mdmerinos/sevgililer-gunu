@@ -1,41 +1,17 @@
 import streamlit as st
 import streamlit.components.v1 as components
-import base64
-from pathlib import Path
 
 # Sayfa ayarları
 st.set_page_config(page_title="Sana Bir Sorum Var ❤️", page_icon="🏎️", layout="centered")
 
-# Resmi yükle ve Base64'e çevir
-def get_base64_image(image_path):
-    try:
-        with open(image_path, "rb") as f:
-            return base64.b64encode(f.read()).decode()
-    except:
-        # Eğer dosya bulunamazsa alternatif bir yöntem
-        return None
-
-# Resmi yükle - uploads klasöründen direkt oku
-img_path = Path("/mnt/user-data/uploads/simsek.jpg")
-if img_path.exists():
-    img_data = get_base64_image(img_path)
-else:
-    # Alternatif: Streamlit file uploader kullan
-    st.error("Lütfen simsek.jpg dosyasını yükleyin")
-    uploaded_file = st.file_uploader("Lightning McQueen resmini yükleyin", type=['jpg', 'jpeg', 'png'])
-    if uploaded_file:
-        img_data = base64.b64encode(uploaded_file.read()).decode()
-    else:
-        st.stop()
-
 # HTML kodu
-html_code = f"""
+html_code = """
 <!DOCTYPE html>
 <html>
 <head>
     <style>
-        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-        body {{ 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
             background-color: #fff5f7; 
             font-family: 'Arial', sans-serif; 
             display: flex; 
@@ -44,8 +20,8 @@ html_code = f"""
             min-height: 100vh; 
             padding: 20px;
             overflow: hidden;
-        }}
-        .container {{ 
+        }
+        .container { 
             text-align: center; 
             background: white; 
             padding: 40px; 
@@ -54,21 +30,21 @@ html_code = f"""
             width: 100%; 
             max-width: 500px; 
             position: relative; 
-        }}
-        h1 {{ 
+        }
+        h1 { 
             color: #ff4b6b; 
             margin-bottom: 30px; 
             font-size: 24px; 
-        }}
-        .buttons {{ 
+        }
+        .buttons { 
             display: flex; 
             justify-content: center; 
             gap: 20px; 
             min-height: 80px; 
             align-items: center; 
             position: relative;
-        }}
-        button {{ 
+        }
+        button { 
             padding: 15px 30px; 
             font-size: 18px; 
             border-radius: 50px; 
@@ -76,32 +52,32 @@ html_code = f"""
             cursor: pointer; 
             font-weight: bold; 
             transition: all 0.3s ease; 
-        }}
-        #yesBtn {{ 
+        }
+        #yesBtn { 
             background-color: #ff4b6b; 
             color: white; 
             position: relative;
             z-index: 10;
-        }}
-        #yesBtn:hover {{
+        }
+        #yesBtn:hover {
             background-color: #ff3355;
             transform: scale(1.1);
-        }}
-        #noBtn {{ 
+        }
+        #noBtn { 
             background-color: #f0f0f0; 
             color: #888; 
             position: fixed;
             transition: all 0.2s ease;
-        }}
-        #noBtn:hover {{
+        }
+        #noBtn:hover {
             background-color: #e0e0e0;
-        }}
-        #success-content {{ 
+        }
+        #success-content { 
             display: none; 
             text-align: center; 
             animation: fadeIn 0.5s ease-in;
-        }}
-        .img-container {{
+        }
+        .img-container {
             width: 100%;
             max-width: 400px;
             margin: 0 auto 20px;
@@ -109,35 +85,35 @@ html_code = f"""
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(255, 75, 107, 0.2);
-        }}
-        .mcqueen-img {{ 
+        }
+        .mcqueen-img { 
             width: 100%; 
             height: auto;
             display: block;
             animation: zoom 2s ease-in-out infinite;
-        }}
-        .message {{ 
+        }
+        .message { 
             color: #ff4b6b; 
             font-size: 22px; 
             font-weight: bold; 
             animation: pulse 1.5s infinite; 
             margin-top: 20px;
             line-height: 1.5;
-        }}
-        @keyframes pulse {{ 
-            0% {{ transform: scale(1); }} 
-            50% {{ transform: scale(1.05); }} 
-            100% {{ transform: scale(1); }} 
-        }}
-        @keyframes zoom {{
-            0% {{ transform: scale(1); }} 
-            50% {{ transform: scale(1.02); }} 
-            100% {{ transform: scale(1); }} 
-        }}
-        @keyframes fadeIn {{
-            from {{ opacity: 0; }}
-            to {{ opacity: 1; }}
-        }}
+        }
+        @keyframes pulse { 
+            0% { transform: scale(1); } 
+            50% { transform: scale(1.05); } 
+            100% { transform: scale(1); } 
+        }
+        @keyframes zoom {
+            0% { transform: scale(1); } 
+            50% { transform: scale(1.02); } 
+            100% { transform: scale(1); } 
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -151,7 +127,7 @@ html_code = f"""
     </div>
     <div id="success-content">
         <div class="img-container">
-            <img src="data:image/jpeg;base64,{img_data}" 
+            <img src="https://raw.githubusercontent.com/mdmerinos/sevgililer-gunu/main/simsek.jpg" 
                  class="mcqueen-img" 
                  alt="Lightning McQueen">
         </div>
@@ -164,7 +140,7 @@ html_code = f"""
 <script>
     let moveCount = 0;
     
-    function moveButton() {{
+    function moveButton() {
         const btn = document.getElementById('noBtn');
         moveCount++;
         
@@ -177,12 +153,12 @@ html_code = f"""
         btn.style.left = x + 'px';
         btn.style.top = y + 'px';
         
-        if (moveCount > 5) {{
+        if (moveCount > 5) {
             btn.style.transform = 'scale(0.8)';
-        }}
-    }}
+        }
+    }
     
-    function celebrate() {{
+    function celebrate() {
         document.getElementById('content').style.display = 'none';
         document.getElementById('success-content').style.display = 'block';
         
@@ -190,12 +166,12 @@ html_code = f"""
         audio.play().catch(e => console.log("Ses çalma hatası:", e));
         
         createConfetti();
-    }}
+    }
     
-    function createConfetti() {{
+    function createConfetti() {
         const colors = ['#ff4b6b', '#ff69b4', '#ff1493', '#c71585', '#ffd700'];
-        for (let i = 0; i < 60; i++) {{
-            setTimeout(() => {{
+        for (let i = 0; i < 60; i++) {
+            setTimeout(() => {
                 const confetti = document.createElement('div');
                 confetti.style.position = 'fixed';
                 confetti.style.width = '10px';
@@ -209,26 +185,26 @@ html_code = f"""
                 document.body.appendChild(confetti);
                 
                 let pos = -10;
-                const fall = setInterval(() => {{
+                const fall = setInterval(() => {
                     pos += 5;
                     confetti.style.top = pos + 'px';
                     confetti.style.transform = 'rotate(' + (pos * 2) + 'deg)';
-                    if (pos > window.innerHeight) {{
+                    if (pos > window.innerHeight) {
                         clearInterval(fall);
                         confetti.remove();
-                    }}
-                }}, 20);
-            }}, i * 30);
-        }}
-    }}
+                    }
+                }, 20);
+            }, i * 30);
+        }
+    }
     
-    window.onload = function() {{
+    window.onload = function() {
         const btn = document.getElementById('noBtn');
         const container = document.getElementById('mainContainer');
         const rect = container.getBoundingClientRect();
         btn.style.left = (rect.left + rect.width / 2 + 50) + 'px';
         btn.style.top = (rect.top + rect.height / 2) + 'px';
-    }};
+    };
 </script>
 </body>
 </html>
@@ -243,3 +219,8 @@ st.markdown("""
     iframe { border: none !important; }
     </style>
     """, unsafe_allow_html=True)
+```
+
+**Önemli:** Resim URL'si artık doğru: 
+```
+https://raw.githubusercontent.com/mdmerinos/sevgililer-gunu/main/simsek.jpg
