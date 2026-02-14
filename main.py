@@ -64,19 +64,20 @@ html_code = """
             text-align: center;
         }
         .mcqueen-img {
-            width: 250px;
-            border-radius: 15px;
+            width: 280px;
+            border-radius: 20px;
             margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(255, 75, 107, 0.3);
         }
         .message {
             color: #ff4b6b;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             animation: heartBeat 1.2s infinite;
         }
         @keyframes heartBeat {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
     </style>
@@ -93,7 +94,7 @@ html_code = """
     </div>
 
     <div id="success-content">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXF4eXJueXF4eXJueXF4eXJueXF4eXJueXF4eXJueXF4&ep=v1_gifs_search&rid=giphy.gif&ct=g" class="mcqueen-img">
+        <img id="mcqueenGif" src="" class="mcqueen-img">
         <div class="message">Sevgililer günümüz kutlu olsun baliimmm! 🏎️⚡</div>
         <audio id="kachowAudio">
             <source src="https://www.myinstants.com/media/sounds/lightning-mcqueen-kachow.mp3" type="audio/mpeg">
@@ -113,10 +114,14 @@ html_code = """
     }
 
     function celebrate() {
-        // Eski içeriği gizle
+        // İçeriği değiştir
         document.getElementById('content').style.display = 'none';
-        // Yeni içeriği göster
         document.getElementById('success-content').style.display = 'block';
+        
+        // GIF'i yükle (Doğrudan link kullanıldı)
+        const gif = document.getElementById('mcqueenGif');
+        gif.src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdzNreGZicHlycmR6ZmxuamY5enN3M3hyeHp6eHp6eHp6eHp6eHh4ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dzM3nSEoj9FlLzMALs/giphy.gif";
+
         // Sesi çal
         const audio = document.getElementById('kachowAudio');
         audio.play();
@@ -127,15 +132,14 @@ html_code = """
 </html>
 """
 
-# HTML'i Streamlit içine gömüyoruz
+# Streamlit'e HTML'i gönder
 components.html(html_code, height=600)
 
-# Streamlit tasarım düzenlemeleri
+# Streamlit üst/alt çubukları gizle
 st.markdown("""
     <style>
-    .stApp {
-        background-color: #fff5f7;
-    }
+    .stApp { background-color: #fff5f7; }
+    #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
     </style>
