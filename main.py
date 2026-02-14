@@ -121,9 +121,10 @@ html_code = """
     </div>
     <div id="success-content">
         <div class="gif-container">
-            <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDh5bTFmNzB0OXExYnk0dmNpMGgxZWE4aDdsdGFvZmNwMngyZGo0cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xUOwGhOrYP0jP6iAy4/giphy.gif" 
+            <img src="https://media.tenor.com/images/3a43312d90c1da3fbce8c8d2e8e8c7c3/tenor.gif" 
                  class="mcqueen-img" 
-                 alt="Lightning McQueen">
+                 alt="Lightning McQueen Wink"
+                 onerror="this.onerror=null; this.src='https://i.pinimg.com/originals/66/d4/7a/66d47aeb028b60e62127c72d4e6469ff.gif';">
         </div>
         <div class="message">Sevgililer günümüz kutlu olsun baliimmm! 🏎️⚡💕</div>
         <audio id="kachowAudio" preload="auto">
