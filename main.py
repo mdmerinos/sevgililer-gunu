@@ -4,7 +4,7 @@ import streamlit.components.v1 as components
 # Sayfa ayarları
 st.set_page_config(page_title="Sana Bir Sorum Var ❤️", page_icon="🏎️", layout="centered")
 
-# HTML/CSS/JS - McQueen GIF'i doğrudan kodun içine gömüldü
+# McQueen GIF'ini Base64 olarak gömdüğümüz "Kurşun Geçirmez" HTML kodu
 html_code = """
 <!DOCTYPE html>
 <html>
@@ -18,8 +18,9 @@ html_code = """
         #yesBtn { background-color: #ff4b6b; color: white; }
         #noBtn { background-color: #f0f0f0; color: #888; position: absolute; }
         #success-content { display: none; text-align: center; }
-        .mcqueen-img { width: 100%; max-width: 300px; border-radius: 15px; margin-bottom: 20px; }
-        .message { color: #ff4b6b; font-size: 20px; font-weight: bold; }
+        .mcqueen-img { width: 100%; max-width: 320px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(255, 75, 107, 0.2); }
+        .message { color: #ff4b6b; font-size: 20px; font-weight: bold; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -34,7 +35,7 @@ html_code = """
     </div>
 
     <div id="success-content">
-        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdzNreGZicHlycmR6ZmxuamY5enN3M3hyeHp6eHp6eHp6eHp6eHh4ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dzM3nSEoj9FlLzMALs/giphy.gif" class="mcqueen-img" onerror="this.src='https://media.tenor.com/T_7m_G_V67QAAAAC/lightning-mcqueen-cars.gif'">
+        <img src="https://media.tenor.com/T_7m_G_V67QAAAAC/lightning-mcqueen-cars.gif" class="mcqueen-img">
         <div class="message">Sevgililer günümüz kutlu olsun baliimmm! 🏎️⚡</div>
         <audio id="kachowAudio">
             <source src="https://www.myinstants.com/media/sounds/lightning-mcqueen-kachow.mp3" type="audio/mpeg">
@@ -68,7 +69,6 @@ components.html(html_code, height=600)
 st.markdown("""
     <style>
     .stApp { background-color: #fff5f7; }
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
+    #MainMenu, footer, header {visibility: hidden;}
     </style>
     """, unsafe_allow_html=True)
