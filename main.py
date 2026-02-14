@@ -4,7 +4,7 @@ import streamlit.components.v1 as components
 # Sayfa ayarları
 st.set_page_config(page_title="Sana Bir Sorum Var ❤️", page_icon="🏎️", layout="centered")
 
-# CSS, JavaScript ve McQueen Medya İçeren HTML kodu
+# CSS ve JavaScript içeren HTML kodu
 html_code = """
 <!DOCTYPE html>
 <html>
@@ -46,7 +46,7 @@ html_code = """
         #success-content { display: none; text-align: center; }
         .mcqueen-img {
             width: 100%;
-            max-width: 300px;
+            max-width: 320px;
             border-radius: 15px;
             margin-bottom: 20px;
         }
@@ -97,6 +97,7 @@ html_code = """
 
 components.html(html_code, height=600)
 
+# Streamlit tasarımını temizle
 st.markdown("""
     <style>
     .stApp { background-color: #fff5f7; }
