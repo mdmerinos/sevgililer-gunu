@@ -127,9 +127,7 @@ html_code = """
     </div>
     <div id="success-content">
         <div class="img-container">
-            <img src="https://raw.githubusercontent.com/mdmerinos/sevgililer-gunu/main/simsek.jpg" 
-                 class="mcqueen-img" 
-                 alt="Lightning McQueen">
+            <img src="https://raw.githubusercontent.com/mdmerinos/sevgililer-gunu/main/simsek.jpg" class="mcqueen-img" alt="Lightning McQueen">
         </div>
         <div class="message">Sevgililer günümüz kutlu olsun baliimmm! 🏎️⚡💕</div>
         <audio id="kachowAudio" preload="auto">
@@ -219,8 +217,3 @@ st.markdown("""
     iframe { border: none !important; }
     </style>
     """, unsafe_allow_html=True)
-```
-
-**Önemli:** Resim URL'si artık doğru: 
-```
-https://raw.githubusercontent.com/mdmerinos/sevgililer-gunu/main/simsek.jpg
